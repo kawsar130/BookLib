@@ -146,12 +146,3 @@ a {
   max-width: 1200px;
   margin: 0 auto;
 }
-
-/* ===========================
-   Media Queries
-   =========================== */
-@media (max-width: 768px) {
-  .container {
-    width: 100%;
-  }
-}
