@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* ===========================
+   Start of Font Style Block
+   =========================== */
+.font-thin {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200; /* Thin weight */
+}
+
+.font-light {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300; /* Light weight */
+}
+
+.font-regular {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400; /* Regular weight */
+}
+
+.font-semibold {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600; /* Semibold weight */
+}
+
+.font-bold {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700; /* Bold weight */
+}
+
+.font-italic {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic; /* Italic style */
+}
+
+/* ===========================
+   End of Font Style Block
+   =========================== */
