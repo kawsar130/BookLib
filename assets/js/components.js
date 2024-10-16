@@ -4,4 +4,4 @@ fetch("/components/header.html")
   .then((data) => {
     document.getElementById("header").innerHTML = data;
   })
-  .catch((error) => console.error("Error loading navbar:", error));
+  .catch((error) => console.error("Error loading navbar:", error)); // TODO: Show error message in the UI

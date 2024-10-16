@@ -98,6 +98,30 @@
   margin-top: 100px;
 }
 
+.error-message {
+  margin: 50px auto;
+  font-size: 20px;
+  color: red;
+}
+
+#pagination-controls {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pagination-controls .pagination-btn {
+  margin: 0 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #aaa;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
 /* ===========================
    Book Collection Section Ends
    =========================== */
