@@ -58,10 +58,18 @@ a {
     0 16px 16px hsl(0deg 0% 0% / 0.02);
 }
 
-/* Container class for centering content */
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+/* --------------- Responsive Styles ------------- */
+
+/* Extra Small Devices (phones, less than 576px) */
+@media (max-width: 575px) {
+  .container {
+    padding: 10px;
+  }
 }

@@ -104,14 +104,17 @@
 
 /* --------------- Responsive Styles ------------- */
 
-/* Extra Small Devices (phones, less than 576px) */
-@media (max-width: 575px) {
-  #navbar {
-    display: none;
-  }
-
+/* Large Devices (big screen tablets, laptops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1368px) {
   #book-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Medium Devices (big screen tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+  #book-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -122,16 +125,13 @@
   }
 }
 
-/* Medium Devices (desktops, 768px and up) */
-@media (min-width: 768px) and (max-width: 991px) {
-  #book-container {
-    grid-template-columns: repeat(2, 1fr);
+/* Extra Small Devices (phones, less than 576px) */
+@media (max-width: 575px) {
+  #navbar {
+    display: none;
   }
-}
 
-/* Large Devices (large desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1368px) {
   #book-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
