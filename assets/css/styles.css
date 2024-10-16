@@ -4,20 +4,19 @@
 #header {
   border-bottom: 1px solid #ddd;
   position: sticky;
-  box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.02), 0 2px 2px hsl(0deg 0% 0% / 0.02),
-    0 4px 4px hsl(0deg 0% 0% / 0.02), 0 8px 8px hsl(0deg 0% 0% / 0.02),
-    0 16px 16px hsl(0deg 0% 0% / 0.02);
+  top: 0;
+  background: white;
 }
 
 #header-contents {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
 }
 
 #navbar ul {
   display: flex;
+  align-items: center;
   gap: 40px;
 }
 /* ===========================
@@ -29,7 +28,6 @@
    =========================== */
 #book-section {
   margin: 20px auto;
-  padding: 20px;
 }
 
 #book-container {
@@ -53,6 +51,8 @@
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: 20px;
+  padding: 20px;
+  background: #f9f9f9;
 }
 
 .book .book-cover {
@@ -98,20 +98,47 @@
   margin-top: 100px;
 }
 
+.error-message {
+  margin: 50px auto;
+  font-size: 20px;
+  color: red;
+}
+
+#pagination-controls {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pagination-controls .pagination-btn {
+  margin: 0 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #aaa;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
 /* ===========================
    Book Collection Section Ends
    =========================== */
 
 /* --------------- Responsive Styles ------------- */
 
-/* Extra Small Devices (phones, less than 576px) */
-@media (max-width: 575px) {
-  #navbar {
-    display: none;
-  }
-
+/* Large Devices (big screen tablets, laptops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1368px) {
   #book-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Medium Devices (big screen tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+  #book-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -122,16 +149,13 @@
   }
 }
 
-/* Medium Devices (desktops, 768px and up) */
-@media (min-width: 768px) and (max-width: 991px) {
-  #book-container {
-    grid-template-columns: repeat(2, 1fr);
+/* Extra Small Devices (phones, less than 576px) */
+@media (max-width: 575px) {
+  #navbar {
+    display: none;
   }
-}
 
-/* Large Devices (large desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1368px) {
   #book-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }

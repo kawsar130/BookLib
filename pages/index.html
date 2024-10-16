@@ -10,14 +10,24 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
   </head>
   <body>
-    <header id="header"></header>
+    <header id="header" class="shadow"></header>
 
     <!-- Book Container -->
     <section id="book-section" class="container">
       <h2>Collections</h2>
 
+      <!-- Spin Loader -->
       <div id="loader">Loading books...</div>
+
+      <!-- Book Grid -->
       <div id="book-container"></div>
+
+      <!-- Pagination -->
+      <div id="pagination-controls">
+        <button id="prev-page" class="pagination-btn" disabled>Previous</button>
+        <span id="page-info">Page 1</span>
+        <button id="next-page" class="pagination-btn">Next</button>
+      </div>
     </section>
 
     <script type="text/javascript" src="/assets/js/main.js"></script>
