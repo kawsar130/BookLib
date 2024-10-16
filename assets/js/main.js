@@ -28,7 +28,7 @@ function displayBooks(books) {
   // Loop through each book and create elements
   books.forEach((book) => {
     const bookDiv = document.createElement("div");
-    bookDiv.classList.add("book");
+    bookDiv.classList.add("book", "shadow");
 
     // Book Cover Image container
     const imgContainer = document.createElement("div");

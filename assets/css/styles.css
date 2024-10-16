@@ -4,20 +4,19 @@
 #header {
   border-bottom: 1px solid #ddd;
   position: sticky;
-  box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.02), 0 2px 2px hsl(0deg 0% 0% / 0.02),
-    0 4px 4px hsl(0deg 0% 0% / 0.02), 0 8px 8px hsl(0deg 0% 0% / 0.02),
-    0 16px 16px hsl(0deg 0% 0% / 0.02);
+  top: 0;
+  background: white;
 }
 
 #header-contents {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
 }
 
 #navbar ul {
   display: flex;
+  align-items: center;
   gap: 40px;
 }
 /* ===========================
@@ -29,7 +28,6 @@
    =========================== */
 #book-section {
   margin: 20px auto;
-  padding: 20px;
 }
 
 #book-container {
@@ -53,6 +51,8 @@
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: 20px;
+  padding: 20px;
+  background: #f9f9f9;
 }
 
 .book .book-cover {
