@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
       bookContainer.innerHTML = ""; // clear Book Container when data is being loaded
 
       const response = await fetch(url);
+
+      // Check if response is OK
+      if (!response.ok) {
+        throw new Error(`An error occurred: ${response.statusText}`);
+      }
+
       const data = await response.json();
 
       // Display the books
@@ -84,10 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to update pagination controls
   function updatePaginationControls() {
-    console.log(prevUrl);
-
-    prevPageBtn.disabled = !prevUrl;
-    nextPageBtn.disabled = !nextUrl;
     pageInfo.textContent = `Page ${currentPage}`;
   }
 

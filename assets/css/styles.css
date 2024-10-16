@@ -85,10 +85,11 @@
 .book .book-authors {
   margin-bottom: 10px;
   color: #555;
+  font-weight: 500;
 }
 
 .book .book-subjects {
-  color: #999;
+  color: #aaa;
 }
 
 #loader {
