@@ -115,12 +115,15 @@ document.addEventListener("DOMContentLoaded", () => {
         subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
         bookDiv.appendChild(subjects);
 
+        // Wishlist Icon
+        //TODO: Wishlist Icon Implementation
+
         // Append to the book container
         bookContainer.appendChild(bookDiv);
       });
     } else {
       bookContainer.innerHTML =
-        "<p class='error-message'>No books found matching the given criteria.</p>";
+        "<p class='error-message'>No books found matching the given criteria.</p>"; // TODO: Make it center aligned
     }
   }
 
