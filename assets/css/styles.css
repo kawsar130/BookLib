@@ -23,6 +23,31 @@
    Header Section Ends
    =========================== */
 
+.title-heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-heading-container input {
+  padding: 20px 30px;
+  border-radius: 5px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  color: #555;
+  width: 300px;
+}
+
+button:disabled,
+button[disabled] {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+}
+
+.title-heading-container input:focus {
+  outline: 1px solid #999;
+}
+
 /* ===========================
    Book Collection Section Starts
    =========================== */
@@ -88,15 +113,14 @@
   font-weight: 500;
 }
 
-.book .book-subjects {
-  color: #aaa;
-}
-
 #loader {
   display: none; /* Initially hidden */
   text-align: center;
   font-size: 20px;
   margin-top: 100px;
+  min-height: 400px;
+  justify-content: center;
+  align-items: center;
 }
 
 .error-message {

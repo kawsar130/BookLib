@@ -2,22 +2,40 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
   let nextUrl = null;
   let prevUrl = null;
+  let searchQuery = "";
+  let currentFetchController = null; // Variable to store the current AbortController
 
   const bookContainer = document.getElementById("book-container");
   const paginationControls = document.getElementById("pagination-controls");
   const prevPageBtn = document.getElementById("prev-page");
   const nextPageBtn = document.getElementById("next-page");
   const pageInfo = document.getElementById("page-info");
+  const searchBar = document.getElementById("search-bar");
 
   const loader = document.getElementById("loader");
 
   async function fetchBooks(url = "https://gutendex.com/books/") {
     try {
-      loader.style.display = "block"; // show Loader when data is being loaded
-      paginationControls.style.visibility = "hidden"; // hide pagination controls when data is being loaded
+      // Abort any ongoing request if a new one is initiated
+      if (currentFetchController) {
+        currentFetchController.abort();
+      }
+
+      // Create a new AbortController for the new fetch request
+      currentFetchController = new AbortController();
+      const { signal } = currentFetchController;
+
+      // Set a small delay before showing the loader to prevent flicker
+      setTimeout(() => {
+        if (!signal.aborted) {
+          initializeLoadingState();
+        }
+      }, 100);
+
+      initializeLoadingState();
       bookContainer.innerHTML = ""; // clear Book Container when data is being loaded
 
-      const response = await fetch(url);
+      const response = await fetch(url, { signal });
 
       // Check if response is OK
       if (!response.ok) {
@@ -26,20 +44,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await response.json();
 
+      console.log(data);
+
       // Display the books
       displayBooks(data.results);
 
       // Setup Pagination
       nextUrl = data.next;
       prevUrl = data.previous;
-      updatePaginationControls();
     } catch (error) {
-      console.error(error);
-      bookContainer.innerHTML =
-        "<p class='error-message'>Failed to load books. Please try again later!</p>";
+      if (error.name === "AbortError") {
+        // Request was aborted
+        console.log("Previous request was aborted.");
+      } else {
+        console.error(error);
+        bookContainer.innerHTML =
+          "<p class='error-message'>Failed to load books. Please try again later!</p>";
+      }
     } finally {
-      paginationControls.style.visibility = "visible"; // show pagination controls when data has been loaded
-      loader.style.display = "none"; // hide loader when data has been loaded
+      if (!currentFetchController.signal.aborted) {
+        updatePaginationControls();
+        loader.style.display = "none";
+      }
     }
   }
 
@@ -90,8 +116,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to update pagination controls
   function updatePaginationControls() {
+    prevPageBtn.disabled = !prevUrl;
+    nextPageBtn.disabled = !nextUrl;
     pageInfo.textContent = `Page ${currentPage}`;
   }
+
+  function initializeLoadingState() {
+    loader.style.display = "flex"; // Show loader
+    prevPageBtn.disabled = true;
+    nextPageBtn.disabled = true;
+  }
+
+  // Debounce Function to limit how often the search function runs
+  function debounce(func, delay) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  // Event listener for search input
+  searchBar.addEventListener(
+    "input",
+    debounce((event) => {
+      searchQuery = event.target.value.trim();
+      currentPage = 1; // Reset to first page when new search is performed
+
+      if (searchQuery) {
+        fetchBooks(
+          `https://gutendex.com/books?search=${encodeURIComponent(searchQuery)}`
+        );
+      } else {
+        fetchBooks(); // Fetch all books if search query is empty
+      }
+    }, 500) // 300ms delay for debouncing
+  );
 
   // Event listeners for pagination buttons
   prevPageBtn.addEventListener("click", () => {
