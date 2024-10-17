@@ -17,20 +17,35 @@
       <di class="title-heading-container">
         <h2>Collections</h2>
 
-        <div>
+        <div id="search-filter-container">
           <input
             type="text"
             id="search-bar"
             placeholder="Search by author or title..."
           />
+
+          <div class="select-container">
+            <select id="topic-filter">
+              <option value="">Select a Genre/Topic</option>
+              <option value="children">Children's Literature</option>
+              <option value="adventure">Adventure</option>
+              <option value="mystery">Mystery</option>
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="fantasy">Fantasy</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
         </div>
       </di>
 
-      <!-- Spin Loader -->
-      <div id="loader">Loading books...</div>
+      <div id="book-container-wrapper">
+        <!-- Spin Loader -->
+        <div id="loader">Loading books...</div>
 
-      <!-- Book Grid -->
-      <div id="book-container"></div>
+        <!-- Book Grid -->
+        <div id="book-container"></div>
+      </div>
 
       <!-- Pagination -->
       <div id="pagination-controls">

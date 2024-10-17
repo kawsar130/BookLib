@@ -23,29 +23,41 @@
    Header Section Ends
    =========================== */
 
-.title-heading-container {
+.title-heading-container,
+#search-filter-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+}
+
+.title-heading-container input,
+.title-heading-container select {
+  padding: 20px;
+  border-radius: 5px;
+  background: #f9f9f9;
+  color: #555;
+  border: none;
 }
 
 .title-heading-container input {
-  padding: 20px 30px;
-  border-radius: 5px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  color: #555;
   width: 300px;
+  border: 1px solid #ddd;
 }
 
-button:disabled,
-button[disabled] {
-  background: #ccc !important;
-  cursor: not-allowed !important;
+.title-heading-container .select-container {
+  padding-right: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .title-heading-container input:focus {
   outline: 1px solid #999;
+}
+
+.title-heading-container select:focus {
+  outline: none;
 }
 
 /* ===========================
@@ -53,6 +65,14 @@ button[disabled] {
    =========================== */
 #book-section {
   margin: 20px auto;
+}
+
+#book-container-wrapper {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #book-container {
@@ -117,16 +137,16 @@ button[disabled] {
   display: none; /* Initially hidden */
   text-align: center;
   font-size: 20px;
-  margin-top: 100px;
-  min-height: 400px;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .error-message {
   margin: 50px auto;
   font-size: 20px;
   color: red;
+  text-align: center;
 }
 
 #pagination-controls {
@@ -158,6 +178,10 @@ button[disabled] {
   #book-container {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  #loader {
+    min-height: 50px;
+  }
 }
 
 /* Medium Devices (big screen tablets, 768px and up) */
@@ -172,6 +196,18 @@ button[disabled] {
   #book-container {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  #search-filter-container {
+    width: 100%;
+  }
+
+  .title-heading-container input {
+    width: 100%;
+  }
+
+  .title-heading-container {
+    flex-direction: column;
+  }
 }
 
 /* Extra Small Devices (phones, less than 576px) */
@@ -182,5 +218,22 @@ button[disabled] {
 
   #book-container {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .title-heading-container,
+  #search-filter-container {
+    flex-direction: column;
+  }
+
+  .title-heading-container input {
+    text-align: center;
+  }
+
+  .title-heading-container input::placeholder {
+    opacity: 0.4;
+  }
+
+  #book-container-wrapper {
+    min-height: 250px;
   }
 }

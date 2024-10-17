@@ -3,14 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
   let nextUrl = null;
   let prevUrl = null;
   let searchQuery = "";
+  let selectedTopic = "";
   let currentFetchController = null; // Variable to store the current AbortController
 
   const bookContainer = document.getElementById("book-container");
+  const bookContainerWrapper = document.getElementById(
+    "book-container-wrapper"
+  );
   const paginationControls = document.getElementById("pagination-controls");
   const prevPageBtn = document.getElementById("prev-page");
   const nextPageBtn = document.getElementById("next-page");
   const pageInfo = document.getElementById("page-info");
   const searchBar = document.getElementById("search-bar");
+  const topicFilter = document.getElementById("topic-filter");
 
   const loader = document.getElementById("loader");
 
@@ -58,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Previous request was aborted.");
       } else {
         console.error(error);
-        bookContainer.innerHTML =
+        bookContainerWrapper.innerHTML =
           "<p class='error-message'>Failed to load books. Please try again later!</p>";
       }
     } finally {
@@ -71,47 +76,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displayBooks(books) {
     // Loop through each book and create elements
-    books.forEach((book) => {
-      const bookDiv = document.createElement("div");
-      bookDiv.classList.add("book", "shadow");
+    if (books.length) {
+      books.forEach((book) => {
+        const bookDiv = document.createElement("div");
+        bookDiv.classList.add("book", "shadow");
 
-      // Book Cover Image container
-      const imgContainer = document.createElement("div");
-      imgContainer.classList.add("book-cover-container");
+        // Book Cover Image container
+        const imgContainer = document.createElement("div");
+        imgContainer.classList.add("book-cover-container");
 
-      // Book cover image
-      const img = document.createElement("img");
-      img.src =
-        book.formats["image/jpeg"] || "/assets/images/book-thumbnail.webp"; // Use a default image if none available
-      img.alt = book.title;
-      img.classList.add("book-cover");
-      imgContainer.appendChild(img);
-      bookDiv.appendChild(imgContainer);
+        // Book cover image
+        const img = document.createElement("img");
+        img.src =
+          book.formats["image/jpeg"] || "/assets/images/book-thumbnail.webp"; // Use a default image if none available
+        img.alt = book.title;
+        img.classList.add("book-cover");
+        imgContainer.appendChild(img);
+        bookDiv.appendChild(imgContainer);
 
-      // Book title
-      const title = document.createElement("h4");
-      title.classList.add("book-title");
-      title.innerText = book.title;
-      title.setAttribute("title", book.title);
-      bookDiv.appendChild(title);
+        // Book title
+        const title = document.createElement("h4");
+        title.classList.add("book-title");
+        title.innerText = book.title;
+        title.setAttribute("title", book.title);
+        bookDiv.appendChild(title);
 
-      // Book authors
-      const authors = document.createElement("p");
-      authors.classList.add("book-authors");
-      authors.innerText = `Authors: ${book.authors
-        .map((author) => author.name)
-        .join(", ")}`;
-      bookDiv.appendChild(authors);
+        // Book authors
+        const authors = document.createElement("p");
+        authors.classList.add("book-authors");
+        authors.innerText = `Authors: ${book.authors
+          .map((author) => author.name)
+          .join(", ")}`;
+        bookDiv.appendChild(authors);
 
-      // Book subjects
-      const subjects = document.createElement("p");
-      subjects.classList.add("book-subjects");
-      subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
-      bookDiv.appendChild(subjects);
+        // Book subjects
+        const subjects = document.createElement("p");
+        subjects.classList.add("book-subjects");
+        subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
+        bookDiv.appendChild(subjects);
 
-      // Append to the book container
-      bookContainer.appendChild(bookDiv);
-    });
+        // Append to the book container
+        bookContainer.appendChild(bookDiv);
+      });
+    } else {
+      bookContainer.innerHTML =
+        "<p class='error-message'>No books found matching the given criteria.</p>";
+    }
   }
 
   // Function to update pagination controls
@@ -152,6 +162,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 500) // 300ms delay for debouncing
   );
+
+  // Event listener for topic filter
+  topicFilter.addEventListener("change", (event) => {
+    selectedTopic = event.target.value;
+    currentPage = 1; // Reset to first page when a new topic is selected
+    updateBookList();
+  });
+
+  // Update book list based on search and topic filters
+  function updateBookList() {
+    let url = "https://gutendex.com/books/";
+
+    // Apply search query if exists
+    if (searchQuery) {
+      url += `?search=${encodeURIComponent(searchQuery)}`;
+    }
+
+    // Apply topic filter if exists
+    if (selectedTopic) {
+      url += searchQuery
+        ? `&topic=${encodeURIComponent(selectedTopic)}`
+        : `?topic=${encodeURIComponent(selectedTopic)}`;
+    }
+
+    fetchBooks(url);
+  }
 
   // Event listeners for pagination buttons
   prevPageBtn.addEventListener("click", () => {
