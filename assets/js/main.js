@@ -1,4 +1,8 @@
-import { isBookWishlisted, toggleWishlist } from "./helpers.js";
+import {
+  isBookWishlisted,
+  removeElementsByClass,
+  toggleWishlist,
+} from "./helpers.js";
 import { createWishlistIcon } from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookContainerWrapper = document.getElementById(
     "book-container-wrapper"
   );
-  const paginationControls = document.getElementById("pagination-controls");
+
   const prevPageBtn = document.getElementById("prev-page");
   const nextPageBtn = document.getElementById("next-page");
   const pageInfo = document.getElementById("page-info");
@@ -42,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       initializeLoadingState();
       bookContainer.innerHTML = ""; // clear Book Container when data is being loaded
+      removeElementsByClass("error-message"); // clear error message before data loading
 
       const response = await fetch(url, { signal });
 
@@ -145,11 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const wishlistIcon = createWishlistIcon(isWishlisted);
         wishlistIcon.addEventListener("click", () => {
           toggleWishlist(book.id);
-          const updatedIsWishlisted = isBookWishlisted(book.id);
-          wishlistIcon.setAttribute(
-            "fill",
-            updatedIsWishlisted ? "#e74c3c" : "none"
-          );
+          const isWishlisted = isBookWishlisted(book.id);
+          wishlistIcon.setAttribute("fill", isWishlisted ? "#e74c3c" : "none");
         });
 
         wishlistIconContainer.appendChild(wishlistIcon);
@@ -159,8 +161,11 @@ document.addEventListener("DOMContentLoaded", () => {
         bookContainer.appendChild(bookDiv);
       });
     } else {
-      bookContainer.innerHTML =
-        "<p class='error-message'>No books found matching the given criteria.</p>"; // TODO: Make it center aligned
+      const noBookFoundMessage = document.createElement("p");
+      noBookFoundMessage.classList.add("error-message");
+      noBookFoundMessage.innerText =
+        "No books found matching the given criteria.";
+      bookContainerWrapper.appendChild(noBookFoundMessage);
     }
   }
 

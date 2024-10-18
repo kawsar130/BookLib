@@ -10,9 +10,24 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
   </head>
   <body>
-    <header id="header"></header>
+    <header id="header" class="shadow"></header>
 
-    <script type="text/javascript" src="/assets/js/main.js"></script>
-    <script type="text/javascript" src="/assets/js/components.js"></script>
+    <!-- Wishlist Container -->
+    <section id="wishlist-section" class="container">
+      <di class="title-heading-container">
+        <h2>Your Wishlist</h2>
+      </di>
+
+      <div id="wishlist-container-wrapper">
+        <!-- Spin Loader -->
+        <div id="loader">Loading books...</div>
+
+        <!-- Wishlist Book Grid -->
+        <div id="wishlist-container"></div>
+      </div>
+    </section>
+
+    <script type="module" src="/assets/js/wishlist.js"></script>
+    <script type="module" src="/assets/js/components.js"></script>
   </body>
 </html>
