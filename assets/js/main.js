@@ -124,6 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // bookDiv.appendChild(subjects);
         bookContentContainer.appendChild(subjects);
 
+        // Book ID
+        const bookId = document.createElement("p");
+        bookId.classList.add("book-id");
+        bookId.innerText = `Identification No. : ${book.id}`;
+        // bookDiv.appendChild(subjects);
+        bookContentContainer.appendChild(bookId);
+
+        // Adding book contents to bookDiv
         bookDiv.appendChild(bookContentContainer);
 
         // Wishlist Icon

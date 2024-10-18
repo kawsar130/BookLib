@@ -141,6 +141,10 @@
   font-weight: 500;
 }
 
+.book .book-id {
+  margin-top: 10px;
+}
+
 .wishlist-icon-container {
   position: absolute;
   top: 24px;
