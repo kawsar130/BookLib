@@ -157,6 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPage = 1; // Reset to first page when new search is performed
 
       if (searchQuery) {
+        // Resetting Topic Filter to default when new search is performed
+        topicFilter.selectIndex = 0;
+        topicFilter.value = "";
+
         fetchBooks(
           `https://gutendex.com/books?search=${encodeURIComponent(searchQuery)}`
         );
