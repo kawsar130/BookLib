@@ -1,3 +1,6 @@
+import { isBookWishlisted, toggleWishlist } from "./helpers.js";
+import { createWishlistIcon } from "./utils.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
   let nextUrl = null;
@@ -94,12 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
         imgContainer.appendChild(img);
         bookDiv.appendChild(imgContainer);
 
+        const bookContentContainer = document.createElement("div");
+        bookContentContainer.classList.add("book-content-container");
+
         // Book title
         const title = document.createElement("h4");
         title.classList.add("book-title");
         title.innerText = book.title;
         title.setAttribute("title", book.title);
-        bookDiv.appendChild(title);
+        // bookDiv.appendChild(title);
+        bookContentContainer.appendChild(title);
 
         // Book authors
         const authors = document.createElement("p");
@@ -107,16 +114,38 @@ document.addEventListener("DOMContentLoaded", () => {
         authors.innerText = `Authors: ${book.authors
           .map((author) => author.name)
           .join(", ")}`;
-        bookDiv.appendChild(authors);
+        // bookDiv.appendChild(authors);
+        bookContentContainer.appendChild(authors);
 
         // Book subjects
         const subjects = document.createElement("p");
         subjects.classList.add("book-subjects");
         subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
-        bookDiv.appendChild(subjects);
+        // bookDiv.appendChild(subjects);
+        bookContentContainer.appendChild(subjects);
+
+        bookDiv.appendChild(bookContentContainer);
 
         // Wishlist Icon
-        //TODO: Wishlist Icon Implementation
+        const wishlistIconContainer = document.createElement("div");
+        wishlistIconContainer.classList.add(
+          "wishlist-icon-container",
+          "shadow"
+        );
+
+        const isWishlisted = isBookWishlisted(book.id);
+        const wishlistIcon = createWishlistIcon(isWishlisted);
+        wishlistIcon.addEventListener("click", () => {
+          toggleWishlist(book.id);
+          const updatedIsWishlisted = isBookWishlisted(book.id);
+          wishlistIcon.setAttribute(
+            "fill",
+            updatedIsWishlisted ? "#e74c3c" : "none"
+          );
+        });
+
+        wishlistIconContainer.appendChild(wishlistIcon);
+        bookDiv.appendChild(wishlistIconContainer);
 
         // Append to the book container
         bookContainer.appendChild(bookDiv);
