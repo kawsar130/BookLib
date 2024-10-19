@@ -23,8 +23,24 @@
 #navbar ul {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
+
+#navbar ul li a {
+  padding: 10px 15px;
+}
+
+#navbar ul li a:hover {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+}
+
+/* Hide menu icon on larger screens */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
 /* ===========================
    Header Section Ends
    =========================== */
@@ -234,13 +250,12 @@
 
 #book-details-cover-container {
   width: 40%;
-  height: 100%;
-  min-height: 600px;
+  height: 600px;
+  padding: 50px;
   border: 1px solid #ddd;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 10px;
-  padding: 20px;
   background: #f9f9f9;
   display: flex;
   flex-direction: column;
@@ -311,7 +326,7 @@
   }
 
   #book-details-cover-container {
-    min-height: 500px;
+    height: 500px;
   }
 
   #book-details-content-container #book-title {
@@ -339,7 +354,7 @@
   }
 
   #book-details-cover-container {
-    min-height: 400px;
+    height: 400px;
   }
 
   #book-details-content-container #book-title {
@@ -349,8 +364,30 @@
 
 /* Extra Small Devices (phones, less than 576px) */
 @media (max-width: 575px) {
-  #navbar {
+  #navbar ul {
     display: none;
+    flex-direction: column;
+    gap: 0px;
+    background-color: white;
+    border: 1px solid #ddd;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 200px;
+    border-radius: 4px;
+  }
+
+  .show-nav-links {
+    display: flex !important;
+  }
+
+  .nav-links li {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .menu-icon {
+    display: block;
   }
 
   #book-container,
@@ -382,10 +419,7 @@
   }
 
   #book-details-cover-container {
-    min-height: 400px;
-  }
-
-  #book-details-cover-container {
+    height: 400px;
     width: 100%;
     margin-bottom: 10px;
   }
