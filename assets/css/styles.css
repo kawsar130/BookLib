@@ -9,6 +9,9 @@
   top: 0;
   background: white;
   height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #header-contents {
@@ -226,7 +229,7 @@
 #book-details-container {
   display: flex;
   gap: 50px;
-  margin-top: 50px;
+  margin: 50px auto;
 }
 
 #book-details-cover-container {
