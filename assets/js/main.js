@@ -37,13 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
       currentFetchController = new AbortController();
       const { signal } = currentFetchController;
 
-      // Set a small delay before showing the loader to prevent flicker
-      setTimeout(() => {
-        if (!signal.aborted) {
-          initializeLoadingState();
-        }
-      }, 100);
-
       initializeLoadingState();
       bookContainer.innerHTML = ""; // clear Book Container when data is being loaded
       removeElementsByClass("error-message"); // clear error message before data loading
@@ -117,8 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const authors = document.createElement("p");
         authors.classList.add("book-authors");
         authors.innerText = `Authors: ${book.authors
-          .map((author) => author.name)
-          .join(", ")}`;
+          .map(
+            (author) =>
+              `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+          )
+          .join("| ")}`;
         bookContentContainer.appendChild(authors);
 
         // Book topics
@@ -152,10 +148,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         wishlistIconContainer.appendChild(wishlistIcon);
-        bookDiv.appendChild(wishlistIconContainer);
+
+        const bookDivWrapper = document.createElement("div");
+        bookDivWrapper.classList.add("book-wrapper");
+
+        bookDivWrapper.appendChild(wishlistIconContainer);
+
+        const wrapperLink = document.createElement("a");
+        wrapperLink.href = `/pages/book-details.html?id=${book.id}`;
+        wrapperLink.appendChild(bookDiv);
+
+        bookDivWrapper.appendChild(wrapperLink);
 
         // Append to the book container
-        bookContainer.appendChild(bookDiv);
+        bookContainer.appendChild(bookDivWrapper);
       });
     } else {
       const noBookFoundMessage = document.createElement("p");

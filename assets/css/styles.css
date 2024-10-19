@@ -89,12 +89,16 @@
   margin-top: 20px;
 }
 
+.book-wrapper {
+  position: relative;
+}
+
 .book {
   border: 1px solid #ddd;
   padding: 12px;
   background: white;
   border-radius: 12px;
-  position: relative;
+  height: 100%;
 }
 
 .book .book-cover-container {
@@ -215,6 +219,73 @@
    Book Collection Section Ends
    =========================== */
 
+/* ===========================
+   Book Details Page Style Starts
+   =========================== */
+
+#book-details-container {
+  display: flex;
+  gap: 50px;
+  margin-top: 50px;
+}
+
+#book-details-cover-container {
+  width: 40%;
+  height: 100%;
+  min-height: 600px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 20px;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#book-details-cover-container #book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#book-details-content-container {
+  width: 60%;
+}
+
+#book-details-content-container #book-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#book-details-content-container #book-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#book-details-content-container #book-details p {
+  font-size: 14px;
+  color: #555;
+}
+
+#book-details-content-container #book-details #book-authors {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+}
+
+#book-details-content-container #book-details #book-topics {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===========================
+   Book Details Page Style Ends
+   =========================== */
+
 /* ~~~~~~~~~~~~~~~~~ Responsive Styles ~~~~~~~~~~~~~~~~~ */
 
 /* Large Devices (big screen tablets, laptops, 992px and up) */
@@ -235,6 +306,14 @@
   #wishlist-container {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  #book-details-cover-container {
+    min-height: 500px;
+  }
+
+  #book-details-content-container #book-title {
+    font-size: 28px;
+  }
 }
 
 /* Small Devices (tablets, 576px and up) */
@@ -254,6 +333,14 @@
 
   .title-heading-container {
     flex-direction: column;
+  }
+
+  #book-details-cover-container {
+    min-height: 400px;
+  }
+
+  #book-details-content-container #book-title {
+    font-size: 24px;
   }
 }
 
@@ -284,5 +371,27 @@
   #book-container-wrapper,
   #wishlist-container-wrapper {
     min-height: 250px;
+  }
+
+  #book-details-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #book-details-cover-container {
+    min-height: 400px;
+  }
+
+  #book-details-cover-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #book-details-content-container {
+    width: 100%;
+  }
+
+  #book-details-content-container #book-title {
+    font-size: 20px;
   }
 }

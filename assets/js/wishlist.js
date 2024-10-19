@@ -62,8 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const authors = document.createElement("p");
     authors.classList.add("book-authors");
     authors.innerText = `Authors: ${book.authors
-      .map((author) => author.name)
-      .join(", ")}`;
+      .map(
+        (author) =>
+          `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+      )
+      .join("| ")}`;
     bookContentContainer.appendChild(authors);
 
     // Book topics
@@ -93,17 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (confirmRemoval) {
         removeFromWishlist(book.id);
-        bookDiv.remove(); // Remove the book element from the DOM
+        bookDivWrapper.remove(); // Remove the book element from the DOM
       }
     });
 
     wishlistIconContainer.appendChild(wishlistIcon);
-    bookDiv.appendChild(wishlistIconContainer);
 
-    // Append to the book container
-    wishlistContainer.appendChild(bookDiv);
+    const bookDivWrapper = document.createElement("div");
+    bookDivWrapper.classList.add("book-wrapper");
 
-    return bookDiv;
+    bookDivWrapper.appendChild(wishlistIconContainer);
+
+    const wrapperLink = document.createElement("a");
+    wrapperLink.href = `/pages/book-details.html?id=${book.id}`;
+    wrapperLink.appendChild(bookDiv);
+
+    bookDivWrapper.appendChild(wrapperLink);
+
+    return bookDivWrapper;
   }
 
   // Function to fetch book details by IDs

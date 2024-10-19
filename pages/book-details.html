@@ -10,9 +10,30 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/base.css" />
   </head>
   <body>
-    <header id="header"></header>
+    <header id="header" class="shadow"></header>
 
-    <script type="module" src="/assets/js/main.js"></script>
+    <div id="book-details-container" class="container">
+      <div id="book-details-cover-container">
+        <img
+          id="book-cover"
+          alt="Book Cover"
+          src="/assets/images/book-thumbnail.webp"
+        />
+      </div>
+
+      <div id="book-details-content-container">
+        <h2 id="book-title">Loading...</h2>
+        <div id="book-details">
+          <p id="book-authors"></p>
+          <p id="book-topics"></p>
+          <p id="book-download-count"></p>
+          <p id="book-media-type"></p>
+          <p id="book-copyright"></p>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="/assets/js/components.js"></script>
+    <script type="module" src="/assets/js/book-details.js"></script>
   </body>
 </html>
