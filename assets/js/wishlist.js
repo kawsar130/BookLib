@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     title.classList.add("book-title");
     title.innerText = book.title;
     title.setAttribute("title", book.title);
-    // bookDiv.appendChild(title);
     bookContentContainer.appendChild(title);
 
     // Book authors
@@ -65,21 +64,18 @@ document.addEventListener("DOMContentLoaded", () => {
     authors.innerText = `Authors: ${book.authors
       .map((author) => author.name)
       .join(", ")}`;
-    // bookDiv.appendChild(authors);
     bookContentContainer.appendChild(authors);
 
-    // Book subjects
-    const subjects = document.createElement("p");
-    subjects.classList.add("book-subjects");
-    subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
-    // bookDiv.appendChild(subjects);
-    bookContentContainer.appendChild(subjects);
+    // Book topics
+    const topics = document.createElement("p");
+    topics.classList.add("book-topics");
+    topics.innerText = `topics: ${book.subjects.join(", ")}`;
+    bookContentContainer.appendChild(topics);
 
     // Book ID
     const bookId = document.createElement("p");
     bookId.classList.add("book-id");
     bookId.innerText = `Identification No. : ${book.id}`;
-    // bookDiv.appendChild(subjects);
     bookContentContainer.appendChild(bookId);
 
     // Adding book contents to bookDiv
