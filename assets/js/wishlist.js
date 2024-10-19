@@ -56,30 +56,29 @@ document.addEventListener("DOMContentLoaded", () => {
     title.classList.add("book-title");
     title.innerText = book.title;
     title.setAttribute("title", book.title);
-    // bookDiv.appendChild(title);
     bookContentContainer.appendChild(title);
 
     // Book authors
     const authors = document.createElement("p");
     authors.classList.add("book-authors");
     authors.innerText = `Authors: ${book.authors
-      .map((author) => author.name)
-      .join(", ")}`;
-    // bookDiv.appendChild(authors);
+      .map(
+        (author) =>
+          `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+      )
+      .join("| ")}`;
     bookContentContainer.appendChild(authors);
 
-    // Book subjects
-    const subjects = document.createElement("p");
-    subjects.classList.add("book-subjects");
-    subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
-    // bookDiv.appendChild(subjects);
-    bookContentContainer.appendChild(subjects);
+    // Book topics
+    const topics = document.createElement("p");
+    topics.classList.add("book-topics");
+    topics.innerText = `topics: ${book.subjects.join(", ")}`;
+    bookContentContainer.appendChild(topics);
 
     // Book ID
     const bookId = document.createElement("p");
     bookId.classList.add("book-id");
     bookId.innerText = `Identification No. : ${book.id}`;
-    // bookDiv.appendChild(subjects);
     bookContentContainer.appendChild(bookId);
 
     // Adding book contents to bookDiv
@@ -97,17 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (confirmRemoval) {
         removeFromWishlist(book.id);
-        bookDiv.remove(); // Remove the book element from the DOM
+        bookDivWrapper.remove(); // Remove the book element from the DOM
       }
     });
 
     wishlistIconContainer.appendChild(wishlistIcon);
-    bookDiv.appendChild(wishlistIconContainer);
 
-    // Append to the book container
-    wishlistContainer.appendChild(bookDiv);
+    const bookDivWrapper = document.createElement("div");
+    bookDivWrapper.classList.add("book-wrapper");
 
-    return bookDiv;
+    bookDivWrapper.appendChild(wishlistIconContainer);
+
+    const wrapperLink = document.createElement("a");
+    wrapperLink.href = `/pages/book-details.html?id=${book.id}`;
+    wrapperLink.appendChild(bookDiv);
+
+    bookDivWrapper.appendChild(wrapperLink);
+
+    return bookDivWrapper;
   }
 
   // Function to fetch book details by IDs

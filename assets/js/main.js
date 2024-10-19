@@ -37,13 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
       currentFetchController = new AbortController();
       const { signal } = currentFetchController;
 
-      // Set a small delay before showing the loader to prevent flicker
-      setTimeout(() => {
-        if (!signal.aborted) {
-          initializeLoadingState();
-        }
-      }, 100);
-
       initializeLoadingState();
       bookContainer.innerHTML = ""; // clear Book Container when data is being loaded
       removeElementsByClass("error-message"); // clear error message before data loading
@@ -110,30 +103,30 @@ document.addEventListener("DOMContentLoaded", () => {
         title.classList.add("book-title");
         title.innerText = book.title;
         title.setAttribute("title", book.title);
-        // bookDiv.appendChild(title);
+
         bookContentContainer.appendChild(title);
 
         // Book authors
         const authors = document.createElement("p");
         authors.classList.add("book-authors");
         authors.innerText = `Authors: ${book.authors
-          .map((author) => author.name)
-          .join(", ")}`;
-        // bookDiv.appendChild(authors);
+          .map(
+            (author) =>
+              `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+          )
+          .join("| ")}`;
         bookContentContainer.appendChild(authors);
 
-        // Book subjects
-        const subjects = document.createElement("p");
-        subjects.classList.add("book-subjects");
-        subjects.innerText = `Subjects: ${book.subjects.join(", ")}`;
-        // bookDiv.appendChild(subjects);
-        bookContentContainer.appendChild(subjects);
+        // Book topics
+        const topics = document.createElement("p");
+        topics.classList.add("book-topics");
+        topics.innerText = `Topics: ${book.subjects.join(", ")}`;
+        bookContentContainer.appendChild(topics);
 
         // Book ID
         const bookId = document.createElement("p");
         bookId.classList.add("book-id");
         bookId.innerText = `Identification No. : ${book.id}`;
-        // bookDiv.appendChild(subjects);
         bookContentContainer.appendChild(bookId);
 
         // Adding book contents to bookDiv
@@ -155,10 +148,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         wishlistIconContainer.appendChild(wishlistIcon);
-        bookDiv.appendChild(wishlistIconContainer);
+
+        const bookDivWrapper = document.createElement("div");
+        bookDivWrapper.classList.add("book-wrapper");
+
+        bookDivWrapper.appendChild(wishlistIconContainer);
+
+        const wrapperLink = document.createElement("a");
+        wrapperLink.href = `/pages/book-details.html?id=${book.id}`;
+        wrapperLink.appendChild(bookDiv);
+
+        bookDivWrapper.appendChild(wrapperLink);
 
         // Append to the book container
-        bookContainer.appendChild(bookDiv);
+        bookContainer.appendChild(bookDivWrapper);
       });
     } else {
       const noBookFoundMessage = document.createElement("p");
