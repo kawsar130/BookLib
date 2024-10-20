@@ -40,21 +40,21 @@ function updateBookDetailsUI(book) {
       (author) =>
         `${author.name.replace(",", " ").split(" ").reverse().join(" ")} (${
           author.birth_year
-        } - ${author.death_year})`
+        } - ${author.death_year})` // Removing comma from the author name and reversing the word order
     )
     .join(" | ")}`;
 
   const bookTopics = document.getElementById("book-topics");
-  bookTopics.innerText = `Topics: ${book.subjects.join(", ")}`;
+  bookTopics.innerText = `${book.subjects.join(" | ")}`;
 
   const bookDownloadCount = document.getElementById("book-download-count");
-  bookDownloadCount.innerText = `Download Count: ${book.download_count}`;
+  bookDownloadCount.innerText = `${book.download_count}`;
 
   const bookMediaType = document.getElementById("book-media-type");
-  bookMediaType.innerText = `Media Type: ${book.media_type}`;
+  bookMediaType.innerText = `${book.media_type}`;
 
   const bookCopyright = document.getElementById("book-copyright");
-  bookCopyright.innerText = `Copyright: ${book.copyright}`;
+  bookCopyright.innerText = `${book.copyright}`;
 }
 
 // Call the function on page load

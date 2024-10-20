@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
   let nextUrl = null;
   let prevUrl = null;
-  let searchQuery = "";
-  let selectedTopic = "";
+  let searchQuery = localStorage.getItem("searchQuery") || "";
+  let selectedTopic = localStorage.getItem("selectedTopic") || "";
   let currentFetchController = null; // Variable to store the current AbortController
 
   const bookContainer = document.getElementById("book-container");
@@ -26,17 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loader = document.getElementById("loader");
 
+  // Set initial values from localStorage (if any)
+  searchBar.value = searchQuery;
+  topicFilter.value = selectedTopic;
+
   async function fetchBooks(url = "https://gutendex.com/books/") {
+    const currentController = new AbortController(); // Local reference to the current controller
+    const { signal } = currentController;
+
+    // Abort any ongoing request if a new one is initiated
+    if (currentFetchController) {
+      currentFetchController.abort();
+      console.log("Previous fetch aborted");
+    }
+
+    // Set the global controller to the current one
+    currentFetchController = currentController;
+
     try {
-      // Abort any ongoing request if a new one is initiated
-      if (currentFetchController) {
-        currentFetchController.abort();
-      }
-
-      // Create a new AbortController for the new fetch request
-      currentFetchController = new AbortController();
-      const { signal } = currentFetchController;
-
       initializeLoadingState();
       bookContainer.innerHTML = ""; // clear Book Container when data is being loaded
       removeElementsByClass("error-message"); // clear error message before data loading
@@ -49,8 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-
-      console.log(data);
 
       // Display the books
       displayBooks(data.results);
@@ -68,9 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
           "<p class='error-message'>Failed to load books. Please try again later!</p>";
       }
     } finally {
-      if (!currentFetchController.signal.aborted) {
+      if (currentFetchController === currentController && !signal.aborted) {
         updatePaginationControls();
         loader.style.display = "none";
+        console.log("Fetching books Finished");
+        // TODO: Fix the loading state not showing when aborting current fetch controller
       }
     }
   }
@@ -112,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         authors.innerText = `Authors: ${book.authors
           .map(
             (author) =>
-              `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+              `${author.name.replace(",", " ").split(" ").reverse().join(" ")}` // Removing comma from the author name and reversing the word order
           )
           .join("| ")}`;
         bookContentContainer.appendChild(authors);
@@ -120,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Book topics
         const topics = document.createElement("p");
         topics.classList.add("book-topics");
-        topics.innerText = `Topics: ${book.subjects.join(", ")}`;
+        topics.innerText = `Topics: ${book.subjects.join(" | ")}`;
         bookContentContainer.appendChild(topics);
 
         // Book ID
@@ -172,17 +179,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function initializeLoadingState() {
+    loader.style.display = "flex"; // Show loader
+    prevPageBtn.disabled = true;
+    nextPageBtn.disabled = true;
+  }
+
   // Function to update pagination controls
   function updatePaginationControls() {
     prevPageBtn.disabled = !prevUrl;
     nextPageBtn.disabled = !nextUrl;
     pageInfo.textContent = `Page ${currentPage}`;
-  }
-
-  function initializeLoadingState() {
-    loader.style.display = "flex"; // Show loader
-    prevPageBtn.disabled = true;
-    nextPageBtn.disabled = true;
   }
 
   // Debounce Function to limit how often the search function runs
@@ -201,17 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
       searchQuery = event.target.value.trim();
       currentPage = 1; // Reset to first page when new search is performed
 
-      if (searchQuery) {
-        // Resetting Topic Filter to default when new search is performed
-        topicFilter.selectIndex = 0;
-        topicFilter.value = "";
+      // Save search query to localStorage
+      localStorage.setItem("searchQuery", searchQuery);
 
-        fetchBooks(
-          `https://gutendex.com/books?search=${encodeURIComponent(searchQuery)}`
-        );
-      } else {
-        fetchBooks(); // Fetch all books if search query is empty
-      }
+      updateBookList();
     }, 500) // 300ms delay for debouncing
   );
 
@@ -219,6 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
   topicFilter.addEventListener("change", (event) => {
     selectedTopic = event.target.value;
     currentPage = 1; // Reset to first page when a new topic is selected
+
+    // Save selected topic to localStorage
+    localStorage.setItem("selectedTopic", selectedTopic);
+
     updateBookList();
   });
 
@@ -256,6 +260,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Fetch books when the page loads
-  fetchBooks();
+  updateBookList();
 });

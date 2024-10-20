@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     authors.innerText = `Authors: ${book.authors
       .map(
         (author) =>
-          `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+          `${author.name.replace(",", " ").split(" ").reverse().join(" ")}` // Removing comma from the author name and reversing the word order
       )
       .join("| ")}`;
     bookContentContainer.appendChild(authors);
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Book topics
     const topics = document.createElement("p");
     topics.classList.add("book-topics");
-    topics.innerText = `topics: ${book.subjects.join(", ")}`;
+    topics.innerText = `Topics: ${book.subjects.join(" | ")}`;
     bookContentContainer.appendChild(topics);
 
     // Book ID
