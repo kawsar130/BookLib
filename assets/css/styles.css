@@ -311,7 +311,7 @@
 }
 
 .book-info-table tr:nth-child(even) td {
-  background-color: #f9f9f9;
+  background-color: #eee;
 }
 
 /* ===========================
@@ -367,8 +367,19 @@
     flex-direction: column;
   }
 
+  #book-details-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
   #book-details-cover-container {
-    height: 400px;
+    height: 500px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #book-details-content-container {
+    width: 100%;
   }
 
   #book-details-content-container #book-title {
