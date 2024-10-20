@@ -33,11 +33,11 @@ BookLib/
 
 ## ⚙️ Getting Started
 
-- Clone the repository
-- Open the Project Directory with VS code and open the 'pages' directory
-- **Open the 'index.html' file with Live Server**
+- Clone the repository.
+- Open the Project Directory with VS code and open the 'pages' folder.
+- **Open the 'index.html' file with Live Server.**
 - A new browser window will be opened with the Live preview of the project.
 
-Notes: If the Live Server is not installed in your VS code or IDE, please install it from the Extension Manager and then start the server.
+**Notes:** If the Live Server is not installed in your VS code or IDE, please install it from the Extension Manager and then start the server.
 
-**Thank You for visiting the repository.**
+**Thanks for visiting**
