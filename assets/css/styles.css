@@ -202,11 +202,6 @@
 
 #loader {
   display: none; /* Initially hidden */
-  text-align: center;
-  font-size: 20px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
 .error-message {
@@ -284,20 +279,39 @@
   gap: 20px;
 }
 
-#book-details-content-container #book-details p {
-  font-size: 14px;
-  color: #555;
-}
-
 #book-details-content-container #book-details #book-authors {
   font-size: 18px;
   font-weight: 500;
   color: #555;
 }
 
-#book-details-content-container #book-details #book-topics {
+.book-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.book-info-table th,
+.book-info-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
   font-size: 14px;
-  color: #666;
+}
+
+.book-info-table th {
+  background-color: #f4f4f4;
+  color: #333;
+  width: 150px;
+}
+
+.book-info-table td {
+  background-color: #fafafa;
+}
+
+.book-info-table tr:nth-child(even) td {
+  background-color: #f9f9f9;
 }
 
 /* ===========================

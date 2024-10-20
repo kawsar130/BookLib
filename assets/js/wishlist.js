@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Book topics
     const topics = document.createElement("p");
     topics.classList.add("book-topics");
-    topics.innerText = `Topics: ${book.subjects.join(", ")}`;
+    topics.innerText = `Topics: ${book.subjects.join(" | ")}`;
     bookContentContainer.appendChild(topics);
 
     // Book ID
