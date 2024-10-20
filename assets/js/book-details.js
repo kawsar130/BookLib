@@ -40,7 +40,7 @@ function updateBookDetailsUI(book) {
       (author) =>
         `${author.name.replace(",", " ").split(" ").reverse().join(" ")} (${
           author.birth_year
-        } - ${author.death_year})`
+        } - ${author.death_year})` // Removing comma from the author name and reversing the word order
     )
     .join(" | ")}`;
 

@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     authors.innerText = `Authors: ${book.authors
       .map(
         (author) =>
-          `${author.name.replace(",", " ").split(" ").reverse().join(" ")}`
+          `${author.name.replace(",", " ").split(" ").reverse().join(" ")}` // Removing comma from the author name and reversing the word order
       )
       .join("| ")}`;
     bookContentContainer.appendChild(authors);
